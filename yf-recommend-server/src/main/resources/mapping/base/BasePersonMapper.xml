@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfdyf.recommend.dao.BaseDao.BasePersonMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.BasePerson">
+    <id column="PERSON_CODE" jdbcType="VARCHAR" property="personCode" />
+    <result column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+    <result column="POSITION_CODE" jdbcType="VARCHAR" property="positionCode" />
+    <result column="POSITION_NAME" jdbcType="VARCHAR" property="positionName" />
+    <result column="IMG_HEAD" jdbcType="VARCHAR" property="imgHead" />
+    <result column="TOTAL_SCORE" jdbcType="VARCHAR" property="totalScore" />
+    <result column="TOTAL_GRADING" jdbcType="VARCHAR" property="totalGrading" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PERSON_CODE, PERSON_NAME, POSITION_CODE, POSITION_NAME, IMG_HEAD, TOTAL_SCORE, TOTAL_GRADING
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BASE_PERSON
+    where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from BASE_PERSON
+    where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="rankinglist.model.BasePerson">
+    insert into BASE_PERSON (PERSON_CODE, PERSON_NAME, POSITION_CODE, 
+      POSITION_NAME, IMG_HEAD, TOTAL_SCORE, 
+      TOTAL_GRADING)
+    values (#{personCode,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{positionCode,jdbcType=VARCHAR}, 
+      #{positionName,jdbcType=VARCHAR}, #{imgHead,jdbcType=VARCHAR}, #{totalScore,jdbcType=VARCHAR}, 
+      #{totalGrading,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="rankinglist.model.BasePerson">
+    insert into BASE_PERSON
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personCode != null">
+        PERSON_CODE,
+      </if>
+      <if test="personName != null">
+        PERSON_NAME,
+      </if>
+      <if test="positionCode != null">
+        POSITION_CODE,
+      </if>
+      <if test="positionName != null">
+        POSITION_NAME,
+      </if>
+      <if test="imgHead != null">
+        IMG_HEAD,
+      </if>
+      <if test="totalScore != null">
+        TOTAL_SCORE,
+      </if>
+      <if test="totalGrading != null">
+        TOTAL_GRADING,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personCode != null">
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="positionName != null">
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgHead != null">
+        #{imgHead,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="totalGrading != null">
+        #{totalGrading,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.BasePerson">
+    update BASE_PERSON
+    <set>
+      <if test="personName != null">
+        PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null">
+        POSITION_CODE = #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="positionName != null">
+        POSITION_NAME = #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgHead != null">
+        IMG_HEAD = #{imgHead,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null">
+        TOTAL_SCORE = #{totalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="totalGrading != null">
+        TOTAL_GRADING = #{totalGrading,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="rankinglist.model.BasePerson">
+    update BASE_PERSON
+    set PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      POSITION_CODE = #{positionCode,jdbcType=VARCHAR},
+      POSITION_NAME = #{positionName,jdbcType=VARCHAR},
+      IMG_HEAD = #{imgHead,jdbcType=VARCHAR},
+      TOTAL_SCORE = #{totalScore,jdbcType=VARCHAR},
+      TOTAL_GRADING = #{totalGrading,jdbcType=VARCHAR}
+    where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

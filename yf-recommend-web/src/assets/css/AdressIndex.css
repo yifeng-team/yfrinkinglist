@@ -1,0 +1,20 @@
+*{
+  margin:0;
+  padding:0;
+}
+.AddressBtn{
+  width: 100%;
+  height:0.9rem;
+  line-height:0.9rem;
+  font-weight: bold;
+  background: #0ac26a;
+  color: white;
+  font-size: 0.4rem;
+}
+.AddressBtn div{
+  text-align: center;
+  float: left;
+  width: 50%;
+}
+.AddressBtn->div:first-child{
+}

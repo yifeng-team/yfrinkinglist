@@ -1,0 +1,89 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.8.RELEASE'
+		pinyin4jVersion = '2.5.0'
+		swagger2Version = '2.6.1'
+		mybatisVersion = '1.3.2'
+		druidVersion = '1.0.14'
+		pagehelperVersion = '1.2.3'
+		jsqlparserVersion = '0.9.5'
+		fastjsonVersion='1.2.33'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+//apply plugin: 'war'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+	group = 'com.yfdyf'
+	version = '1.0-SNAPSHOT'
+	baseName = 'yf-market-server'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile project(':yf-recommend-web') // ui module
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-devtools")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	compile 'org.springframework.boot:spring-boot-starter-aop'
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+	compile "net.sourceforge.nekohtml:nekohtml:1.9.22"
+	compile "com.belerweb:pinyin4j:${pinyin4jVersion}"
+	compile "io.springfox:springfox-swagger2:${swagger2Version}"
+	compile "io.springfox:springfox-swagger-ui:${swagger2Version}"
+	compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+	compile "com.alibaba:druid:${druidVersion}"
+	compile "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
+	compile "com.github.jsqlparser:jsqlparser:${jsqlparserVersion}"
+	compile "com.alibaba:fastjson:${fastjsonVersion}"
+	compile 'com.oracle:ojdbc6:11.2.0.3'
+	compileOnly 'org.projectlombok:lombok:1.16.18'
+
+
+}
+
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.2.1'
+}
+
+task cleanSqlmaps(type: Delete) {
+	def files = fileTree("${buildDir}/classes/java", {
+		include "**/*.xml"
+	})
+	delete files
+}
+
+task copySqlmaps(type: Copy, dependsOn: cleanSqlmaps) {
+	from "${projectDir}/src/main/java"
+	include "**/*.xml"
+	into "${buildDir}/classes/java/main"
+	includeEmptyDirs = false
+}
+
+processResources.dependsOn {
+	copySqlmaps
+}
+
+bootRepackage.enabled = true

@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset = utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>腾讯地图</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0px;
+      padding: 0px
+    }
+    #container {
+      width: 100%;
+      height: 100%
+    }
+  </style>
+  <script src="http://map.qq.com/api/js?v=2.exp"></script>
+</head>
+
+<body>
+<div id="searchDeiv">
+  <input type="text" value="长沙" />
+  <input type="button" onclick="showCustomerOverLay()" value="初始化 "/>
+</div>
+<!--<div id="container" ></div>-->
+<!--<script src="/siteApply/js/plugins/jquery/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+
+  var lastInfoW = null;
+  CustomOverlay.prototype = new qq.maps.Overlay();
+  //定义construct,实现这个接口来初始化自定义的Dom元素
+  CustomOverlay.prototype.construct = function() {
+    var div = this.div = document.createElement("div");
+    var divStyle = this.div.style;
+    divStyle.position = "absolute";
+    divStyle.width = "24px";
+    divStyle.height = "24px";
+    if (this.markType == "0"){
+      divStyle.backgroundColor = "#FF00BB";
+      divStyle.border = "1px solid #aabb33";
+    }else if(this.markType == "1"){
+      divStyle.backgroundColor = "#00EEBB";
+      divStyle.border = "1px solid #aabb33";
+    }else {
+      divStyle.backgroundColor = "#FFAABB";
+      divStyle.border = "1px solid #aabb33";
+    }
+
+    divStyle.textAlign = "center";
+    divStyle.lineHeight = "24px";
+    divStyle.borderRadius = "15px";
+    divStyle.cursor = "pointer";
+    this.div.innerHTML = this.index+1;
+    //将dom添加到覆盖物层
+    var panes = this.getPanes();
+    //设置panes的层级，overlayMouseTarget可接收点击事件
+    panes.overlayMouseTarget.appendChild(div);
+
+    var self = this;
+    this.div.onclick = function() {
+      var storeLocation = markerData[self.index];
+      // alert(storeLocation.storeAddress+"------"+storeLocation.storeFullName);
+      if (lastInfoW){
+        lastInfoW.close();
+      }
+      //添加到提示窗
+      var info = new qq.maps.InfoWindow({
+        map: map
+      });
+      var centerPointLat  = storeLocation.latitude;
+      var centerPointLng  = storeLocation.longitude;
+      var center = new qq.maps.LatLng(centerPointLat, centerPointLng);
+
+      info.open();
+      info.setContent('<div style="text-align:left;'+
+        'margin:10px;">'+storeLocation.markAddress+"<br/>"
+        +storeLocation.markTitle+'</div>');
+      info.setPosition(center);
+
+      lastInfoW = info;
+      setTimeout(function() {
+        info.close();
+      }, 10 * 1000);
+      // showCompeters(self.index);
+    }
+  }
+
+  function showCompeters(index){
+    var storeLocation = markerData[index];
+    console.log(storeLocation);
+    if (storeLocation.competitorDtoList){
+      var list = storeLocation.competitorDtoList;
+      console.log(list.length);
+      for (var i = 0; i < list.length; i++){
+        var storeLocation1 = list[i];
+        var centerPointLat  = storeLocation1.latitude;
+        var centerPointLng  = storeLocation1.longitude;
+        var center = new qq.maps.LatLng(centerPointLat, centerPointLng);
+        var overlay = new CustomOverlay(center, i, storeLocation1.markType);
+        overlay.setMap(map);
+      }
+    }
+
+  }
+
+  //实现draw接口来绘制和更新自定义的dom元素
+  CustomOverlay.prototype.draw = function() {
+    var overlayProjection = this.getProjection();
+    //返回覆盖物容器的相对像素坐标
+    var pixel = overlayProjection.fromLatLngToDivPixel(this.position);
+    var divStyle = this.div.style;
+    divStyle.left = pixel.x - 12 + "px";
+    divStyle.top = pixel.y - 12 + "px";
+  }
+  //实现destroy接口来删除自定义的Dom元素，此方法会在setMap(null)后被调用
+  CustomOverlay.prototype.destroy = function() {
+    this.div.onclick = null;
+    this.div.parentNode.removeChild(this.div);
+    this.div = null
+  }
+
+  function CustomOverlay(position, index, type) {
+    this.index = index;
+    this.position = position;
+    this.markType = type;
+  }
+
+
+  var map = null;
+  function showCustomerOverLay(){
+
+    var storeLocation0 = markerData[0];
+    var centerPointLat0  = storeLocation0.latitude;
+    var centerPointLng0  = storeLocation0.longitude;
+    var center0 = new qq.maps.LatLng(centerPointLat0, centerPointLng0);
+    map = new qq.maps.Map(document.getElementById("container"),
+      {
+        center: center0,
+        zoom: 13
+      });
+    var index = 0;
+    for (var i = 0; i < markerData.length; i++){
+      var storeLocation = markerData[i];
+      var centerPointLat  = storeLocation.latitude;
+      var centerPointLng  = storeLocation.longitude;
+      var center = new qq.maps.LatLng(centerPointLat, centerPointLng);
+      var overlay = new CustomOverlay(center, i, storeLocation.markType);
+      overlay.setMap(map);
+    }
+  }
+
+  $(function(){
+    initCompanySelect();
+  });
+  var markerData = [];
+  function initCompanySelect(){
+    $.ajax({
+      url: "http://localhost:9002/siteApply/store/queryMarkersByMap",
+      type: "GET",
+      datatype:"JSON",
+      success: function (data) {
+        var index = 0;
+        console.log( data.data.length);
+        for (var i = 0; i < data.data.length; i++){
+          var item = data.data[i];
+          if (item.competitorDtoList && item.competitorDtoList.length > 0){
+            console.log( item.competitorDtoList.length);
+            markerData[index] = item;
+            index = index +1;
+            for (var j = 0; j < item.competitorDtoList.length; j++){
+              markerData[index] = item.competitorDtoList[j];
+              index = index +1;
+            }
+
+          }else {
+            markerData[index] = item;
+            index = index +1;
+          }
+        }
+        console.log(markerData);
+      },
+      error: function () {
+        alert("数据请求失败");
+      }
+    });
+  }
+
+</script>
+</body>
+
+</html>

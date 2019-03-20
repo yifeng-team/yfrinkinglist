@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfdyf.recommend.dao.BaseDao.TimeWorkingMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.TimeWorking">
+    <id column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="PERSON_CODE" jdbcType="VARCHAR" property="personCode" />
+    <result column="COUNT_DATE" jdbcType="VARCHAR" property="countDate" />
+    <result column="COUNT_TIME" jdbcType="VARCHAR" property="countTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UUID, PERSON_CODE, COUNT_DATE, COUNT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TIME_WORKING
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TIME_WORKING
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="rankinglist.model.TimeWorking">
+    insert into TIME_WORKING (UUID, PERSON_CODE, COUNT_DATE, 
+      COUNT_TIME)
+    values (#{uuid,jdbcType=VARCHAR}, #{personCode,jdbcType=VARCHAR}, #{countDate,jdbcType=VARCHAR}, 
+      #{countTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="rankinglist.model.TimeWorking">
+    insert into TIME_WORKING
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="personCode != null">
+        PERSON_CODE,
+      </if>
+      <if test="countDate != null">
+        COUNT_DATE,
+      </if>
+      <if test="countTime != null">
+        COUNT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="personCode != null">
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        #{countDate,jdbcType=VARCHAR},
+      </if>
+      <if test="countTime != null">
+        #{countTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.TimeWorking">
+    update TIME_WORKING
+    <set>
+      <if test="personCode != null">
+        PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        COUNT_DATE = #{countDate,jdbcType=VARCHAR},
+      </if>
+      <if test="countTime != null">
+        COUNT_TIME = #{countTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="rankinglist.model.TimeWorking">
+    update TIME_WORKING
+    set PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      COUNT_DATE = #{countDate,jdbcType=VARCHAR},
+      COUNT_TIME = #{countTime,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

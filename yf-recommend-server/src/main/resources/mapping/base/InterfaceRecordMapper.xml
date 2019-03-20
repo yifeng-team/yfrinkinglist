@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfdyf.recommend.dao.BaseDao.InterfaceRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.InterfaceRecord">
+    <id column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="INTERFACE_CODE" jdbcType="VARCHAR" property="interfaceCode" />
+    <result column="USE_DATE" jdbcType="VARCHAR" property="useDate" />
+    <result column="USE_STATE" jdbcType="VARCHAR" property="useState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UUID, INTERFACE_CODE, USE_DATE, USE_STATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from INTERFACE
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from INTERFACE
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="rankinglist.model.InterfaceRecord">
+    insert into INTERFACE (UUID, INTERFACE_CODE, USE_DATE, 
+      USE_STATE)
+    values (#{uuid,jdbcType=VARCHAR}, #{interfaceCode,jdbcType=VARCHAR}, #{useDate,jdbcType=VARCHAR}, 
+      #{useState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="rankinglist.model.InterfaceRecord">
+    insert into INTERFACE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="interfaceCode != null">
+        INTERFACE_CODE,
+      </if>
+      <if test="useDate != null">
+        USE_DATE,
+      </if>
+      <if test="useState != null">
+        USE_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceCode != null">
+        #{interfaceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="useDate != null">
+        #{useDate,jdbcType=VARCHAR},
+      </if>
+      <if test="useState != null">
+        #{useState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.InterfaceRecord">
+    update INTERFACE
+    <set>
+      <if test="interfaceCode != null">
+        INTERFACE_CODE = #{interfaceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="useDate != null">
+        USE_DATE = #{useDate,jdbcType=VARCHAR},
+      </if>
+      <if test="useState != null">
+        USE_STATE = #{useState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="rankinglist.model.InterfaceRecord">
+    update INTERFACE
+    set INTERFACE_CODE = #{interfaceCode,jdbcType=VARCHAR},
+      USE_DATE = #{useDate,jdbcType=VARCHAR},
+      USE_STATE = #{useState,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

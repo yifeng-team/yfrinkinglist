@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfdyf.recommend.dao.BaseDao.ScoreTotalMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.ScoreTotal">
+    <id column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="PERSON_CODE" jdbcType="VARCHAR" property="personCode" />
+    <result column="COUNT_DATE" jdbcType="VARCHAR" property="countDate" />
+    <result column="RANKING" jdbcType="VARCHAR" property="ranking" />
+    <result column="TOTAL_SCORE" jdbcType="VARCHAR" property="totalScore" />
+    <result column="DEVELOPERATION_SCORE" jdbcType="VARCHAR" property="developerationScore" />
+    <result column="WORKINGTIME_SCORE" jdbcType="VARCHAR" property="workingtimeScore" />
+    <result column="APPROVE_SCORE" jdbcType="VARCHAR" property="approveScore" />
+    <result column="CRUXPLAN_SCORE" jdbcType="VARCHAR" property="cruxplanScore" />
+    <result column="TECHNOLOGY_SCORE" jdbcType="VARCHAR" property="technologyScore" />
+    <result column="EFFICIENCY_SCORE" jdbcType="VARCHAR" property="efficiencyScore" />
+    <result column="INNOVATESTUDY_SCORE" jdbcType="VARCHAR" property="innovatestudyScore" />
+    <result column="TEAMWORK_SCORE" jdbcType="VARCHAR" property="teamworkScore" />
+    <result column="COMMUNICATION_SCORE" jdbcType="VARCHAR" property="communicationScore" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UUID, PERSON_CODE, COUNT_DATE, RANKING, TOTAL_SCORE, DEVELOPERATION_SCORE, WORKINGTIME_SCORE, 
+    APPROVE_SCORE, CRUXPLAN_SCORE, TECHNOLOGY_SCORE, EFFICIENCY_SCORE, INNOVATESTUDY_SCORE, 
+    TEAMWORK_SCORE, COMMUNICATION_SCORE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SCORE_TOTAL
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SCORE_TOTAL
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="rankinglist.model.ScoreTotal">
+    insert into SCORE_TOTAL (UUID, PERSON_CODE, COUNT_DATE, 
+      RANKING, TOTAL_SCORE, DEVELOPERATION_SCORE, 
+      WORKINGTIME_SCORE, APPROVE_SCORE, CRUXPLAN_SCORE, 
+      TECHNOLOGY_SCORE, EFFICIENCY_SCORE, INNOVATESTUDY_SCORE, 
+      TEAMWORK_SCORE, COMMUNICATION_SCORE)
+    values (#{uuid,jdbcType=VARCHAR}, #{personCode,jdbcType=VARCHAR}, #{countDate,jdbcType=VARCHAR}, 
+      #{ranking,jdbcType=VARCHAR}, #{totalScore,jdbcType=VARCHAR}, #{developerationScore,jdbcType=VARCHAR}, 
+      #{workingtimeScore,jdbcType=VARCHAR}, #{approveScore,jdbcType=VARCHAR}, #{cruxplanScore,jdbcType=VARCHAR}, 
+      #{technologyScore,jdbcType=VARCHAR}, #{efficiencyScore,jdbcType=VARCHAR}, #{innovatestudyScore,jdbcType=VARCHAR}, 
+      #{teamworkScore,jdbcType=VARCHAR}, #{communicationScore,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="rankinglist.model.ScoreTotal">
+    insert into SCORE_TOTAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="personCode != null">
+        PERSON_CODE,
+      </if>
+      <if test="countDate != null">
+        COUNT_DATE,
+      </if>
+      <if test="ranking != null">
+        RANKING,
+      </if>
+      <if test="totalScore != null">
+        TOTAL_SCORE,
+      </if>
+      <if test="developerationScore != null">
+        DEVELOPERATION_SCORE,
+      </if>
+      <if test="workingtimeScore != null">
+        WORKINGTIME_SCORE,
+      </if>
+      <if test="approveScore != null">
+        APPROVE_SCORE,
+      </if>
+      <if test="cruxplanScore != null">
+        CRUXPLAN_SCORE,
+      </if>
+      <if test="technologyScore != null">
+        TECHNOLOGY_SCORE,
+      </if>
+      <if test="efficiencyScore != null">
+        EFFICIENCY_SCORE,
+      </if>
+      <if test="innovatestudyScore != null">
+        INNOVATESTUDY_SCORE,
+      </if>
+      <if test="teamworkScore != null">
+        TEAMWORK_SCORE,
+      </if>
+      <if test="communicationScore != null">
+        COMMUNICATION_SCORE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="personCode != null">
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        #{countDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null">
+        #{ranking,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="developerationScore != null">
+        #{developerationScore,jdbcType=VARCHAR},
+      </if>
+      <if test="workingtimeScore != null">
+        #{workingtimeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="approveScore != null">
+        #{approveScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cruxplanScore != null">
+        #{cruxplanScore,jdbcType=VARCHAR},
+      </if>
+      <if test="technologyScore != null">
+        #{technologyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="efficiencyScore != null">
+        #{efficiencyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="innovatestudyScore != null">
+        #{innovatestudyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="teamworkScore != null">
+        #{teamworkScore,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationScore != null">
+        #{communicationScore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.ScoreTotal">
+    update SCORE_TOTAL
+    <set>
+      <if test="personCode != null">
+        PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        COUNT_DATE = #{countDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null">
+        RANKING = #{ranking,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null">
+        TOTAL_SCORE = #{totalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="developerationScore != null">
+        DEVELOPERATION_SCORE = #{developerationScore,jdbcType=VARCHAR},
+      </if>
+      <if test="workingtimeScore != null">
+        WORKINGTIME_SCORE = #{workingtimeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="approveScore != null">
+        APPROVE_SCORE = #{approveScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cruxplanScore != null">
+        CRUXPLAN_SCORE = #{cruxplanScore,jdbcType=VARCHAR},
+      </if>
+      <if test="technologyScore != null">
+        TECHNOLOGY_SCORE = #{technologyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="efficiencyScore != null">
+        EFFICIENCY_SCORE = #{efficiencyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="innovatestudyScore != null">
+        INNOVATESTUDY_SCORE = #{innovatestudyScore,jdbcType=VARCHAR},
+      </if>
+      <if test="teamworkScore != null">
+        TEAMWORK_SCORE = #{teamworkScore,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationScore != null">
+        COMMUNICATION_SCORE = #{communicationScore,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="rankinglist.model.ScoreTotal">
+    update SCORE_TOTAL
+    set PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      COUNT_DATE = #{countDate,jdbcType=VARCHAR},
+      RANKING = #{ranking,jdbcType=VARCHAR},
+      TOTAL_SCORE = #{totalScore,jdbcType=VARCHAR},
+      DEVELOPERATION_SCORE = #{developerationScore,jdbcType=VARCHAR},
+      WORKINGTIME_SCORE = #{workingtimeScore,jdbcType=VARCHAR},
+      APPROVE_SCORE = #{approveScore,jdbcType=VARCHAR},
+      CRUXPLAN_SCORE = #{cruxplanScore,jdbcType=VARCHAR},
+      TECHNOLOGY_SCORE = #{technologyScore,jdbcType=VARCHAR},
+      EFFICIENCY_SCORE = #{efficiencyScore,jdbcType=VARCHAR},
+      INNOVATESTUDY_SCORE = #{innovatestudyScore,jdbcType=VARCHAR},
+      TEAMWORK_SCORE = #{teamworkScore,jdbcType=VARCHAR},
+      COMMUNICATION_SCORE = #{communicationScore,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

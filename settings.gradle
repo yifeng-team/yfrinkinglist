@@ -1,0 +1,3 @@
+rootProject.name = 'yf-recommend-parent'
+include 'yf-recommend-server'
+include 'yf-recommend-web'
