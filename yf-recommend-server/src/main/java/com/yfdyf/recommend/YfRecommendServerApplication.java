@@ -1,5 +1,6 @@
 package com.yfdyf.recommend;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -14,6 +15,7 @@ import javax.servlet.MultipartConfigElement;
 //开启定时任务
 @EnableScheduling
 @ComponentScan("com.yfdyf")
+@MapperScan("com.yfdyf.recommend.dao.CommonDao")
 public class YfRecommendServerApplication {
 
 	public static void main(String[] args) {

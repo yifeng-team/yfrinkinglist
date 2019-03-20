@@ -1,5 +1,8 @@
 package com.yfdyf.recommend.entity.BaseBean;
 
+/**
+ *
+ * */
 public class ScoreDevelopment {
     private String uuid;
 

@@ -1,13 +1,16 @@
 package com.yfdyf.recommend.entity.BaseBean;
 
+/**
+ *  360 评估 取平均分（最多5星） 精确到小数后两位
+ * */
 public class ScoreAssess {
     private String uuid;
 
-    private String personCode;
+    private String personCode;//员工编号
 
-    private String countDate;
+    private String countDate;//统计年月 （不包括日）
 
-    private String cruxplan;
+    private String cruxplan;//关键计划
 
     private String technology;
 

@@ -20,13 +20,13 @@
     delete from TIME_WORKING
     where UUID = #{uuid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="rankinglist.model.TimeWorking">
+  <insert id="insert" parameterType="com.yfdyf.recommend.entity.BaseBean.TimeWorking">
     insert into TIME_WORKING (UUID, PERSON_CODE, COUNT_DATE, 
       COUNT_TIME)
     values (#{uuid,jdbcType=VARCHAR}, #{personCode,jdbcType=VARCHAR}, #{countDate,jdbcType=VARCHAR}, 
       #{countTime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="rankinglist.model.TimeWorking">
+  <insert id="insertSelective" parameterType="com.yfdyf.recommend.entity.BaseBean.TimeWorking">
     insert into TIME_WORKING
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.TimeWorking">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yfdyf.recommend.entity.BaseBean.TimeWorking">
     update TIME_WORKING
     <set>
       <if test="personCode != null">
@@ -72,7 +72,7 @@
     </set>
     where UUID = #{uuid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="rankinglist.model.TimeWorking">
+  <update id="updateByPrimaryKey" parameterType="com.yfdyf.recommend.entity.BaseBean.TimeWorking">
     update TIME_WORKING
     set PERSON_CODE = #{personCode,jdbcType=VARCHAR},
       COUNT_DATE = #{countDate,jdbcType=VARCHAR},

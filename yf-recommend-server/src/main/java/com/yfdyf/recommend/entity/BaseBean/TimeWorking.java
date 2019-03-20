@@ -1,5 +1,8 @@
 package com.yfdyf.recommend.entity.BaseBean;
 
+/**
+ * 工作时长 出勤
+ * */
 public class TimeWorking {
     private String uuid;
 

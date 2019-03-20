@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yfdyf.recommend.dao.BaseDao.ScoreDevelopmentMapper">
-  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.ScoreDevelopment">
+<mapper namespace="com.yfdyf.recommend.dao.BaseDao.ScoreOperationMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.BaseBean.ScoreOperation">
     <id column="UUID" jdbcType="VARCHAR" property="uuid" />
     <result column="PERSON_CODE" jdbcType="VARCHAR" property="personCode" />
     <result column="COUNT_DATE" jdbcType="VARCHAR" property="countDate" />
@@ -13,21 +13,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from SCORE_DEVELOPMENT
+    from SCORE_OPERATION
     where UUID = #{uuid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from SCORE_DEVELOPMENT
+    delete from SCORE_OPERATION
     where UUID = #{uuid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="rankinglist.model.ScoreDevelopment">
-    insert into SCORE_DEVELOPMENT (UUID, PERSON_CODE, COUNT_DATE, 
+  <insert id="insert" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreOperation">
+    insert into SCORE_OPERATION (UUID, PERSON_CODE, COUNT_DATE, 
       COUNT_SCORE)
     values (#{uuid,jdbcType=VARCHAR}, #{personCode,jdbcType=VARCHAR}, #{countDate,jdbcType=VARCHAR}, 
       #{countScore,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="rankinglist.model.ScoreDevelopment">
-    insert into SCORE_DEVELOPMENT
+  <insert id="insertSelective" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreOperation">
+    insert into SCORE_OPERATION
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
         UUID,
@@ -57,8 +57,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.ScoreDevelopment">
-    update SCORE_DEVELOPMENT
+  <update id="updateByPrimaryKeySelective" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreOperation">
+    update SCORE_OPERATION
     <set>
       <if test="personCode != null">
         PERSON_CODE = #{personCode,jdbcType=VARCHAR},
@@ -72,8 +72,8 @@
     </set>
     where UUID = #{uuid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="rankinglist.model.ScoreDevelopment">
-    update SCORE_DEVELOPMENT
+  <update id="updateByPrimaryKey" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreOperation">
+    update SCORE_OPERATION
     set PERSON_CODE = #{personCode,jdbcType=VARCHAR},
       COUNT_DATE = #{countDate,jdbcType=VARCHAR},
       COUNT_SCORE = #{countScore,jdbcType=VARCHAR}

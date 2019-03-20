@@ -23,7 +23,7 @@
     delete from BASE_PERSON
     where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="rankinglist.model.BasePerson">
+  <insert id="insert" parameterType="com.yfdyf.recommend.entity.BaseBean.BasePerson">
     insert into BASE_PERSON (PERSON_CODE, PERSON_NAME, POSITION_CODE, 
       POSITION_NAME, IMG_HEAD, TOTAL_SCORE, 
       TOTAL_GRADING)
@@ -31,7 +31,7 @@
       #{positionName,jdbcType=VARCHAR}, #{imgHead,jdbcType=VARCHAR}, #{totalScore,jdbcType=VARCHAR}, 
       #{totalGrading,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="rankinglist.model.BasePerson">
+  <insert id="insertSelective" parameterType="com.yfdyf.recommend.entity.BaseBean.BasePerson">
     insert into BASE_PERSON
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="personCode != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.BasePerson">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yfdyf.recommend.entity.BaseBean.BasePerson">
     update BASE_PERSON
     <set>
       <if test="personName != null">
@@ -104,7 +104,7 @@
     </set>
     where PERSON_CODE = #{personCode,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="rankinglist.model.BasePerson">
+  <update id="updateByPrimaryKey" parameterType="com.yfdyf.recommend.entity.BaseBean.BasePerson">
     update BASE_PERSON
     set PERSON_NAME = #{personName,jdbcType=VARCHAR},
       POSITION_CODE = #{positionCode,jdbcType=VARCHAR},

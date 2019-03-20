@@ -26,7 +26,7 @@
     delete from SCORE_ASSESS
     where UUID = #{uuid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="rankinglist.model.ScoreAssess">
+  <insert id="insert" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreAssess">
     insert into SCORE_ASSESS (UUID, PERSON_CODE, COUNT_DATE, 
       CRUXPLAN, TECHNOLOGY, EFFICIENCY, 
       INNOVATESTUDY, TEAMWORK, COMMUNICATION
@@ -36,7 +36,7 @@
       #{innovatestudy,jdbcType=VARCHAR}, #{teamwork,jdbcType=VARCHAR}, #{communication,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="rankinglist.model.ScoreAssess">
+  <insert id="insertSelective" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreAssess">
     insert into SCORE_ASSESS
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.ScoreAssess">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreAssess">
     update SCORE_ASSESS
     <set>
       <if test="personCode != null">
@@ -127,7 +127,7 @@
     </set>
     where UUID = #{uuid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="rankinglist.model.ScoreAssess">
+  <update id="updateByPrimaryKey" parameterType="com.yfdyf.recommend.entity.BaseBean.ScoreAssess">
     update SCORE_ASSESS
     set PERSON_CODE = #{personCode,jdbcType=VARCHAR},
       COUNT_DATE = #{countDate,jdbcType=VARCHAR},

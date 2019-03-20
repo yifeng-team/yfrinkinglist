@@ -6,11 +6,11 @@ package com.yfdyf.recommend.entity.BaseBean;
 public class ScoreApprove {
     private String uuid;
 
-    private String personCode;
+    private String personCode; //员工编号
 
-    private String countDate;
+    private String countDate;//统计时间 年月日
 
-    private String countScore;
+    private String countScore;//积分
 
     public String getUuid() {
         return uuid;

@@ -1,5 +1,8 @@
 package com.yfdyf.recommend.entity.BaseBean;
 
+/**
+ * 得分汇总 具体到分数
+ * */
 public class ScoreTotal {
     private String uuid;
 

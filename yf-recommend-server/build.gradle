@@ -87,3 +87,4 @@ processResources.dependsOn {
 }
 
 bootRepackage.enabled = true
+

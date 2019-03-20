@@ -11,7 +11,7 @@ public class AcceptCardJson {//认可卡
 
     private String NUM;//排名
 
-    private String INTEGRAL;//数量
+    private String INTEGRAL;//积分
 
     private String NAME;//姓名
 
